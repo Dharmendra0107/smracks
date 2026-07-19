@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+Disallow: /*?*sort=
+Disallow: /*?*page=
+
+Sitemap: https://smracks.example.com/sitemap.xml
