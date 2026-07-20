@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\QuoteConfirmationMail;
 use App\Mail\QuoteRequestMail;
 use App\Models\Product;
 use App\Models\QuoteRequest;
@@ -161,6 +162,10 @@ class PageController extends Controller
 
         try {
             Mail::to('gauravmishra3851@gmail.com')->send(new QuoteRequestMail($quoteRequest));
+
+            if ($quoteRequest->email) {
+                Mail::to($quoteRequest->email)->send(new QuoteConfirmationMail($quoteRequest));
+            }
         } catch (\Throwable $e) {
             // Don't fail the whole request just because email delivery
             // had a problem — the submission is already safely saved
