@@ -11,27 +11,28 @@ concurrency:
 
 jobs:
   deploy:
-    name: 🚀 Deploy to Production
     runs-on: ubuntu-latest
 
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
 
-      - name: 🔑 Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SMRACKS_SSH_KEY }}
-
-      - name: 📡 Add Host to Known Hosts
+      - name: 🔑 Configure SSH
         run: |
           mkdir -p ~/.ssh
+
+          echo "${{ secrets.SMRACKS_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
           ssh-keyscan -p ${{ secrets.SMRACKS_PORT }} -H ${{ secrets.SMRACKS_HOST }} >> ~/.ssh/known_hosts
 
-      - name: 🚀 Deploy Application
+      - name: 🚀 Deploy
         run: |
-          ssh -p ${{ secrets.SMRACKS_PORT }} \
-          ${{ secrets.SMRACKS_USERNAME }}@${{ secrets.SMRACKS_HOST }} << 'EOF'
+          ssh \
+            -i ~/.ssh/id_ed25519 \
+            -o StrictHostKeyChecking=yes \
+            -p ${{ secrets.SMRACKS_PORT }} \
+            ${{ secrets.SMRACKS_USERNAME }}@${{ secrets.SMRACKS_HOST }} << 'EOF'
 
           set -e
 
@@ -43,12 +44,12 @@ jobs:
 
           echo "📦 Installing Composer dependencies..."
           composer install \
-              --no-dev \
-              --no-interaction \
-              --prefer-dist \
-              --optimize-autoloader
+            --no-dev \
+            --no-interaction \
+            --prefer-dist \
+            --optimize-autoloader
 
-          echo "🗄️ Running database migrations..."
+          echo "🗄️ Running migrations..."
           php artisan migrate --force
 
           echo "🧹 Clearing caches..."
@@ -59,12 +60,12 @@ jobs:
           php artisan route:cache
           php artisan view:cache
 
-          echo "🔗 Creating storage link..."
+          echo "🔗 Storage Link..."
           php artisan storage:link || true
 
-          echo "🔒 Setting permissions..."
+          echo "🔒 Permissions..."
           chmod -R 775 storage bootstrap/cache
 
-          echo "✅ Deployment completed successfully."
+          echo "✅ Deployment Successful"
 
           EOF
