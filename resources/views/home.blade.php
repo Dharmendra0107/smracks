@@ -191,6 +191,10 @@
 .cat-card-headline{display:flex; align-items:flex-start; justify-content:space-between; gap:1rem;}
 .cat-card-headline h3{color:var(--steel-900); font-size:1.35rem; margin:0; line-height:1.1; flex:1;}
 .cat-card p{color:var(--steel-600); font-size:0.9rem; margin-bottom:0.6rem;}
+.cat-card-price{
+  font-family:var(--font-display); font-size:0.82rem; font-weight:600; letter-spacing:0.02em;
+  color:var(--ember-600); margin-top:-0.3rem; margin-bottom:0.6rem;
+}
 .cat-card-link{
   color:var(--ember-500);
   font-family:var(--font-display);
@@ -413,6 +417,9 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Display shelving for retail stores, grocery outlets & showrooms.</p>
+            @if(!empty($categoryPricing['supermarket']))
+              <div class="cat-card-price">{{ $categoryPricing['supermarket'] }}</div>
+            @endif
           </div>
         </a>
       </div>
@@ -426,6 +433,9 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Adjustable, bolt-free racks for offices, homes & light storage.</p>
+            @if(!empty($categoryPricing['slotted-angle']))
+              <div class="cat-card-price">{{ $categoryPricing['slotted-angle'] }}</div>
+            @endif
           </div>
         </a>
       </div>
@@ -439,6 +449,9 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Heavy-duty pallet & industrial racking for bulk storage facilities.</p>
+            @if(!empty($categoryPricing['warehouse']))
+              <div class="cat-card-price">{{ $categoryPricing['warehouse'] }}</div>
+            @endif
           </div>
         </a>
       </div>
@@ -452,6 +465,9 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Multi-purpose racks for godowns, factories & cold storage units.</p>
+            @if(!empty($categoryPricing['storage']))
+              <div class="cat-card-price">{{ $categoryPricing['storage'] }}</div>
+            @endif
           </div>
         </a>
       </div>
@@ -465,6 +481,9 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>High load-bearing racks for machinery & bulk material storage.</p>
+            @if(!empty($categoryPricing['heavy-duty']))
+              <div class="cat-card-price">{{ $categoryPricing['heavy-duty'] }}</div>
+            @endif
           </div>
         </a>
       </div>
@@ -478,6 +497,9 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Tool-free assembly, modular racks for quick setup & relocation.</p>
+            @if(!empty($categoryPricing['boltless']))
+              <div class="cat-card-price">{{ $categoryPricing['boltless'] }}</div>
+            @endif
           </div>
         </a>
       </div>
@@ -491,6 +513,9 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Rust-proof coated racks built for cold rooms & food storage.</p>
+            @if(!empty($categoryPricing['cold-storage']))
+              <div class="cat-card-price">{{ $categoryPricing['cold-storage'] }}</div>
+            @endif
           </div>
         </a>
       </div>
@@ -504,6 +529,9 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Compact storage solutions for offices, records rooms & homes.</p>
+            @if(!empty($categoryPricing['office']))
+              <div class="cat-card-price">{{ $categoryPricing['office'] }}</div>
+            @endif
           </div>
         </a>
       </div>
@@ -517,6 +545,9 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Panel-mounted display racks, 5–8 ft heights, priced per running foot.</p>
+            @if(!empty($categoryPricing['display-racks']))
+              <div class="cat-card-price">{{ $categoryPricing['display-racks'] }}</div>
+            @endif
           </div>
         </a>
       </div>
@@ -530,6 +561,9 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Channel-frame racking, 5–8 ft heights, priced per running foot.</p>
+            @if(!empty($categoryPricing['channel-rack']))
+              <div class="cat-card-price">{{ $categoryPricing['channel-rack'] }}</div>
+            @endif
           </div>
         </a>
       </div>
@@ -543,6 +577,9 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Double-sided racks, accessible from both faces — built for aisle setups.</p>
+            @if(!empty($categoryPricing['both-side-racks']))
+              <div class="cat-card-price">{{ $categoryPricing['both-side-racks'] }}</div>
+            @endif
           </div>
         </a>
       </div>
