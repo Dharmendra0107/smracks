@@ -88,7 +88,7 @@
     <div class="row g-4">
       @foreach($scenarios as $scenario)
         <div class="col-md-6 col-lg-4">
-          <a href="{{ route('products.index', ['cat' => $scenario['cat']]) }}" class="scenario-card reveal">
+          <a href="{{ route('products.index', ['cat' => $scenario['cat']]) }}" class="scenario-card" data-aos="fade-up" data-aos-delay="{{ min($loop->index * 50, 300) }}">
             <img src="{{ asset('images/' . $scenario['image']) }}" alt="{{ $scenario['title'] }}" loading="lazy">
             <div class="scenario-card-icon"><i class="fa-solid {{ $scenario['icon'] }}"></i></div>
             <div class="scenario-card-content">

@@ -11,39 +11,45 @@ class ProductController extends Controller
      * Categories that exist on the homepage/nav but don't have any
      * seeded products yet — shown with the "made to order" empty
      * state instead of a blank grid. Once real stock exists in the
-     * `products` table for these, this list just becomes irrelevant
-     * (the DB query naturally returns rows instead of nothing).
+     * `products` table for these, remove them from this list (the
+     * DB query then naturally returns rows instead of nothing).
      */
     protected function categoriesWithoutStock(): array
     {
-        return ['heavy-duty', 'boltless', 'cold-storage', 'office'];
+        return ['boltless', 'cold-storage', 'office'];
     }
 
     protected function categoryNames(): array
     {
         return [
-            'supermarket'   => 'Supermarket Racks',
-            'slotted-angle' => 'Slotted Angle Racks',
-            'warehouse'     => 'Warehouse Racks',
-            'storage'       => 'Storage Racks',
-            'heavy-duty'    => 'Heavy Duty Racks',
-            'boltless'      => 'Boltless Racks',
-            'cold-storage'  => 'Cold Storage Racks',
-            'office'        => 'Office & Home Racks',
+            'supermarket'     => 'Supermarket Racks',
+            'slotted-angle'   => 'Slotted Angle Racks',
+            'warehouse'       => 'Warehouse Racks',
+            'storage'         => 'Storage Racks',
+            'heavy-duty'      => 'Heavy Duty Racks',
+            'boltless'        => 'Boltless Racks',
+            'cold-storage'    => 'Cold Storage Racks',
+            'office'          => 'Office & Home Racks',
+            'display-racks'   => 'Display Racks',
+            'channel-rack'    => 'Channel Rack',
+            'both-side-racks' => 'Both Side Racks',
         ];
     }
 
     protected function categoryDescriptions(): array
     {
         return [
-            'supermarket'   => 'Display shelving for retail stores, grocery outlets & showrooms — adjustable, powder coated, ready to ship.',
-            'slotted-angle' => 'Bolt-free, adjustable slotted angle racks for offices, homes, godowns & light storage needs.',
-            'warehouse'     => 'Heavy-duty pallet & industrial racking built for bulk storage, 3PL facilities & distribution centers.',
-            'storage'       => 'Multi-purpose storage racks for godowns, factories & cold storage units — built to last.',
-            'heavy-duty'    => 'High load-bearing racks engineered for machinery & bulk material storage.',
-            'boltless'      => 'Tool-free, modular racks built for quick assembly & relocation.',
-            'cold-storage'  => 'Rust-proof coated racks purpose-built for cold rooms & food storage.',
-            'office'        => 'Compact, tidy storage solutions for offices, records rooms & homes.',
+            'supermarket'     => 'Display shelving for retail stores, grocery outlets & showrooms — adjustable, powder coated, ready to ship.',
+            'slotted-angle'   => 'Bolt-free, adjustable slotted angle racks for offices, homes, godowns & light storage needs.',
+            'warehouse'       => 'Heavy-duty pallet & industrial racking built for bulk storage, 3PL facilities & distribution centers.',
+            'storage'         => 'Multi-purpose storage racks for godowns, factories & cold storage units — built to last.',
+            'heavy-duty'      => 'High load-bearing racks engineered for machinery & bulk material storage.',
+            'boltless'        => 'Tool-free, modular racks built for quick assembly & relocation.',
+            'cold-storage'    => 'Rust-proof coated racks purpose-built for cold rooms & food storage.',
+            'office'          => 'Compact, tidy storage solutions for offices, records rooms & homes.',
+            'display-racks'   => 'Panel-mounted display racks in multiple heights — priced per running foot, built for retail floors.',
+            'channel-rack'    => 'Channel-frame racking available in multiple heights and panel counts, priced per running foot.',
+            'both-side-racks' => 'Double-sided racks for aisle setups — accessible from both faces, maximizing floor space.',
         ];
     }
 
@@ -71,12 +77,12 @@ class ProductController extends Controller
             ? $categoryDescriptions[$cat]
             : 'Browse supermarket, slotted angle, warehouse & storage racks — all custom-built and ready to ship pan-India.';
 
-        // Per-category counts for the filter sidebar. Real query now
-        // instead of a hardcoded array — reflects actual seeded stock.
+        // Per-category counts for the filter sidebar. Real query,
+        // naturally reflects whatever categories actually have
+        // active stock — no hardcoded category list to maintain.
         $categoryCounts = Product::query()
             ->active()
             ->selectRaw('cat, count(*) as total')
-            ->whereIn('cat', ['supermarket', 'slotted-angle', 'warehouse', 'storage'])
             ->groupBy('cat')
             ->pluck('total', 'cat')
             ->toArray();

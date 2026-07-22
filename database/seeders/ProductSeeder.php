@@ -204,5 +204,132 @@ class ProductSeeder extends Seeder
         foreach ($products as $product) {
             Product::updateOrCreate(['slug' => $product['slug']], $product);
         }
+
+        // ---------------------------------------------------------------
+        // Real catalog data supplied by the client — priced per running
+        // foot (most), per kg (Slotted Angle), or "coming soon" (Heavy
+        // Duty). See Product::getDisplayPriceAttribute() for how these
+        // render depending on which pricing fields are set.
+        //
+        // Images below reuse existing placeholder photos from the demo
+        // set — swap every `image`/`images` entry for real product
+        // photography before this goes live.
+        // ---------------------------------------------------------------
+        $newProducts = [
+            // ---- Display Racks (4 heights) ----
+            [
+                'slug' => 'display-rack-5ft',
+                'name' => 'Display Rack — 5 ft',
+                'desc' => 'Height 5 ft, frame size 18×15×12 in (2 panels). Priced per running foot.',
+                'cat' => 'display-racks', 'cat_label' => 'Display Rack', 'badge' => null,
+                'image' => 'products.png', 'images' => ['products2.png', 'compact.png'],
+                'price' => 1700, 'price_unit' => 'Running Ft', 'old_price' => null,
+                'specs' => ['Height' => '5 ft', 'Frame Size' => '18×15×12 in (2 panels)', 'Pricing' => '₹1,700 per running foot'],
+            ],
+            [
+                'slug' => 'display-rack-6ft',
+                'name' => 'Display Rack — 6 ft',
+                'desc' => 'Height 6 ft, frame size 18×15×12 in (3 panels). Priced per running foot.',
+                'cat' => 'display-racks', 'cat_label' => 'Display Rack', 'badge' => null,
+                'image' => 'products2.png', 'images' => ['products.png', 'wallmounted.png'],
+                'price' => 1800, 'price_unit' => 'Running Ft', 'old_price' => null,
+                'specs' => ['Height' => '6 ft', 'Frame Size' => '18×15×12 in (3 panels)', 'Pricing' => '₹1,800 per running foot'],
+            ],
+            [
+                'slug' => 'display-rack-7ft',
+                'name' => 'Display Rack — 7 ft',
+                'desc' => 'Height 7 ft, frame size 18×15×12 in (4 panels). Priced per running foot.',
+                'cat' => 'display-racks', 'cat_label' => 'Display Rack', 'badge' => 'Popular',
+                'image' => 'compact.png', 'images' => ['products.png', 'products2.png'],
+                'price' => 1900, 'price_unit' => 'Running Ft', 'old_price' => null,
+                'specs' => ['Height' => '7 ft', 'Frame Size' => '18×15×12 in (4 panels)', 'Pricing' => '₹1,900 per running foot'],
+            ],
+            [
+                'slug' => 'display-rack-8ft',
+                'name' => 'Display Rack — 8 ft',
+                'desc' => 'Height 8 ft, frame size 18×15×12 in (7 panels). Priced per running foot.',
+                'cat' => 'display-racks', 'cat_label' => 'Display Rack', 'badge' => null,
+                'image' => 'wallmounted.png', 'images' => ['products.png', 'compact.png'],
+                'price' => 2000, 'price_unit' => 'Running Ft', 'old_price' => null,
+                'specs' => ['Height' => '8 ft', 'Frame Size' => '18×15×12 in (7 panels)', 'Pricing' => '₹2,000 per running foot'],
+            ],
+
+            // ---- Channel Rack (4 heights) ----
+            [
+                'slug' => 'channel-rack-5ft',
+                'name' => 'Channel Rack — 5 ft',
+                'desc' => 'Height 5 ft, frame size 15×15×12 in (2 panels). Priced per running foot.',
+                'cat' => 'channel-rack', 'cat_label' => 'Channel Rack', 'badge' => null,
+                'image' => 'adjustable.png', 'images' => ['selective.png'],
+                'price' => 1200, 'price_unit' => 'Running Ft', 'old_price' => null,
+                'specs' => ['Height' => '5 ft', 'Frame Size' => '15×15×12 in (2 panels)', 'Pricing' => '₹1,200 per running foot'],
+            ],
+            [
+                'slug' => 'channel-rack-6ft',
+                'name' => 'Channel Rack — 6 ft',
+                'desc' => 'Height 6 ft, frame size 15×15×12 in (3 panels). Priced per running foot.',
+                'cat' => 'channel-rack', 'cat_label' => 'Channel Rack', 'badge' => null,
+                'image' => 'selective.png', 'images' => ['adjustable.png'],
+                'price' => 1400, 'price_unit' => 'Running Ft', 'old_price' => null,
+                'specs' => ['Height' => '6 ft', 'Frame Size' => '15×15×12 in (3 panels)', 'Pricing' => '₹1,400 per running foot'],
+            ],
+            [
+                'slug' => 'channel-rack-7ft',
+                'name' => 'Channel Rack — 7 ft',
+                'desc' => 'Height 7 ft, frame size 15×15×12 in (4 panels). Priced per running foot.',
+                'cat' => 'channel-rack', 'cat_label' => 'Channel Rack', 'badge' => 'Popular',
+                'image' => 'products3.png', 'images' => ['adjustable.png', 'selective.png'],
+                'price' => 1500, 'price_unit' => 'Running Ft', 'old_price' => null,
+                'specs' => ['Height' => '7 ft', 'Frame Size' => '15×15×12 in (4 panels)', 'Pricing' => '₹1,500 per running foot'],
+            ],
+            [
+                'slug' => 'channel-rack-8ft',
+                'name' => 'Channel Rack — 8 ft',
+                'desc' => 'Height 8 ft, frame size 15×15×12 in (5 panels). Priced per running foot.',
+                'cat' => 'channel-rack', 'cat_label' => 'Channel Rack', 'badge' => null,
+                'image' => 'products4.png', 'images' => ['adjustable.png'],
+                'price' => 1700, 'price_unit' => 'Running Ft', 'old_price' => null,
+                'specs' => ['Height' => '8 ft', 'Frame Size' => '15×15×12 in (5 panels)', 'Pricing' => '₹1,700 per running foot'],
+            ],
+
+            // ---- Slotted Angle Racks (real entry — price range per kg) ----
+            [
+                'slug' => 'slotted-angle-rack-custom',
+                'name' => 'Slotted Angle Rack — Custom Size',
+                'desc' => 'Available in 2 ft to 10 ft sizes, built to your exact requirement.',
+                'cat' => 'slotted-angle', 'cat_label' => 'Slotted Angle Rack', 'badge' => null,
+                'image' => 'slotted.png', 'images' => ['adjustable.png'],
+                'price' => null, 'price_unit' => null, 'old_price' => null,
+                'price_note' => '₹130 – ₹150 per kg',
+                'specs' => ['Available Sizes' => '2 ft to 10 ft', 'Pricing' => '₹130 to ₹150 per kg, depending on size'],
+            ],
+
+            // ---- Heavy Duty Racks (real entry — price coming soon) ----
+            [
+                'slug' => 'heavy-duty-rack-standard',
+                'name' => 'Heavy Duty Rack',
+                'desc' => 'High load-bearing racks engineered for machinery & bulk material storage.',
+                'cat' => 'heavy-duty', 'cat_label' => 'Heavy Duty Rack', 'badge' => 'New',
+                'image' => 'heavy-duty.png', 'images' => [],
+                'price' => null, 'price_unit' => null, 'old_price' => null,
+                'price_note' => 'Coming Soon',
+                'specs' => ['Status' => 'Pricing to be announced — contact us for early inquiries'],
+            ],
+
+            // ---- Both Side Racks ----
+            [
+                'slug' => 'both-side-rack-5ft',
+                'name' => 'Both Side Rack — 5 ft',
+                'desc' => 'Height 5 ft, frame size 18×15×12 in (3 panels). Accessible from both sides.',
+                'cat' => 'both-side-racks', 'cat_label' => 'Both Side Rack', 'badge' => null,
+                'image' => 'warehouse.png', 'images' => ['products3.png'],
+                'price' => 2600, 'price_unit' => 'Running Ft', 'old_price' => null,
+                'specs' => ['Height' => '5 ft', 'Frame Size' => '18×15×12 in (3 panels)', 'Access' => 'Both sides', 'Pricing' => '₹2,600 per running foot'],
+            ],
+        ];
+
+        foreach ($newProducts as $product) {
+            Product::updateOrCreate(['slug' => $product['slug']], $product);
+        }
     }
 }

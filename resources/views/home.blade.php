@@ -397,14 +397,14 @@
 <!-- CATEGORIES -->
 <section class="cat-section" id="categories">
   <div class="container">
-    <div class="text-center mx-auto mb-5 reveal" style="max-width:650px;">
+    <div class="text-center mx-auto mb-5" data-aos="fade-up" style="max-width:650px;">
       <span class="section-tag">Our Range</span>
       <h2 class="section-title">Racks For Every Industry</h2>
       <p class="section-sub mx-auto">From retail shelving to heavy industrial storage — every rack is engineered for load, durability, and space efficiency.</p>
     </div>
     <div class="row g-4">
       <div class="col-md-6 col-lg-3">
-        <a href="{{ route('products.index', ['cat' => 'supermarket']) }}" class="cat-card reveal">
+        <a href="{{ route('products.index', ['cat' => 'supermarket']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="0">
           <img src="{{ asset('images/supermarket.png') }}" alt="Supermarket display racks">
           <div class="cat-card-icon"><i class="fa-solid fa-store"></i></div>
           <div class="cat-card-content">
@@ -417,7 +417,7 @@
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
-        <a href="{{ route('products.index', ['cat' => 'slotted-angle']) }}" class="cat-card reveal">
+        <a href="{{ route('products.index', ['cat' => 'slotted-angle']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="60">
           <img src="{{ asset('images/slotted.png') }}" alt="Slotted angle storage racks">
           <div class="cat-card-icon"><i class="fa-solid fa-layer-group"></i></div>
           <div class="cat-card-content">
@@ -430,7 +430,7 @@
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
-        <a href="{{ route('products.index', ['cat' => 'warehouse']) }}" class="cat-card reveal">
+        <a href="{{ route('products.index', ['cat' => 'warehouse']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="120">
           <img src="{{ asset('images/warehouse.png') }}" alt="Warehouse pallet racks">
           <div class="cat-card-icon"><i class="fa-solid fa-warehouse"></i></div>
           <div class="cat-card-content">
@@ -443,7 +443,7 @@
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
-        <a href="{{ route('products.index', ['cat' => 'storage']) }}" class="cat-card reveal">
+        <a href="{{ route('products.index', ['cat' => 'storage']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="180">
           <img src="{{ asset('images/Storage.png') }}" alt="Godown storage racks">
           <div class="cat-card-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
           <div class="cat-card-content">
@@ -456,7 +456,7 @@
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
-        <a href="{{ route('products.index', ['cat' => 'heavy-duty']) }}" class="cat-card reveal">
+        <a href="{{ route('products.index', ['cat' => 'heavy-duty']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="240">
           <img src="{{ asset('images/heavy-duty.png') }}" alt="Heavy duty industrial racks">
           <div class="cat-card-icon"><i class="fa-solid fa-weight-hanging"></i></div>
           <div class="cat-card-content">
@@ -469,7 +469,7 @@
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
-        <a href="{{ route('products.index', ['cat' => 'boltless']) }}" class="cat-card reveal">
+        <a href="{{ route('products.index', ['cat' => 'boltless']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="300">
           <img src="{{ asset('images/boltless.png') }}" alt="Boltless modular racks">
           <div class="cat-card-icon"><i class="fa-solid fa-cubes"></i></div>
           <div class="cat-card-content">
@@ -482,7 +482,7 @@
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
-        <a href="{{ route('products.index', ['cat' => 'cold-storage']) }}" class="cat-card reveal">
+        <a href="{{ route('products.index', ['cat' => 'cold-storage']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="300">
           <img src="{{ asset('images/cold-storage.png') }}" alt="Cold storage racks">
           <div class="cat-card-icon"><i class="fa-solid fa-snowflake"></i></div>
           <div class="cat-card-content">
@@ -495,7 +495,7 @@
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
-        <a href="{{ route('products.index', ['cat' => 'office']) }}" class="cat-card reveal">
+        <a href="{{ route('products.index', ['cat' => 'office']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="300">
           <img src="{{ asset('images/office.png') }}" alt="Office and home storage racks">
           <div class="cat-card-icon"><i class="fa-solid fa-building"></i></div>
           <div class="cat-card-content">
@@ -504,6 +504,45 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Compact storage solutions for offices, records rooms & homes.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <a href="{{ route('products.index', ['cat' => 'display-racks']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="0">
+          <img src="{{ asset('images/products.png') }}" alt="Display racks">
+          <div class="cat-card-icon"><i class="fa-solid fa-table-cells"></i></div>
+          <div class="cat-card-content">
+            <div class="cat-card-headline">
+              <h3>Display Racks</h3>
+              <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+            <p>Panel-mounted display racks, 5–8 ft heights, priced per running foot.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <a href="{{ route('products.index', ['cat' => 'channel-rack']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="60">
+          <img src="{{ asset('images/adjustable.png') }}" alt="Channel racks">
+          <div class="cat-card-icon"><i class="fa-solid fa-grip-lines"></i></div>
+          <div class="cat-card-content">
+            <div class="cat-card-headline">
+              <h3>Channel Rack</h3>
+              <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+            <p>Channel-frame racking, 5–8 ft heights, priced per running foot.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <a href="{{ route('products.index', ['cat' => 'both-side-racks']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="120">
+          <img src="{{ asset('images/warehouse.png') }}" alt="Both side racks">
+          <div class="cat-card-icon"><i class="fa-solid fa-arrows-left-right"></i></div>
+          <div class="cat-card-content">
+            <div class="cat-card-headline">
+              <h3>Both Side Racks</h3>
+              <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+            <p>Double-sided racks, accessible from both faces — built for aisle setups.</p>
           </div>
         </a>
       </div>
@@ -533,7 +572,7 @@
 <!-- FEATURED PRODUCTS -->
 <section class="products-section" id="products">
   <div class="container">
-    <div class="d-flex flex-wrap justify-content-between align-items-end mb-5 reveal">
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-5" data-aos="fade-up">
       <div>
         <span class="section-tag">Best Sellers</span>
         <h2 class="section-title mb-0">Featured Products</h2>
@@ -542,7 +581,7 @@
     </div>
     <div class="row g-4">
       <div class="col-6 col-lg-3">
-        <div class="product-card reveal">
+        <div class="product-card" data-aos="fade-up" data-aos-delay="0">
           <div class="product-img-wrap"><span class="product-badge">Best Seller</span><img src="{{ asset('images/products.png') }}" alt="Heavy duty display rack"></div>
           <div class="product-card-body">
             <h5>Heavy Duty Display Rack</h5>
@@ -555,7 +594,7 @@
         </div>
       </div>
       <div class="col-6 col-lg-3">
-        <div class="product-card reveal">
+        <div class="product-card" data-aos="fade-up" data-aos-delay="60">
           <div class="product-img-wrap"><img src="{{ asset('images/products2.png') }}" alt="Slotted angle rack MS"></div>
           <div class="product-card-body">
             <h5>Slotted Angle Rack MS</h5>
@@ -568,7 +607,7 @@
         </div>
       </div>
       <div class="col-6 col-lg-3">
-        <div class="product-card reveal">
+        <div class="product-card" data-aos="fade-up" data-aos-delay="120">
           <div class="product-img-wrap"><span class="product-badge">New</span><img src="{{ asset('images/products3.png') }}" alt="Industrial pallet rack"></div>
           <div class="product-card-body">
             <h5>Industrial Pallet Rack</h5>
@@ -581,7 +620,7 @@
         </div>
       </div>
       <div class="col-6 col-lg-3">
-        <div class="product-card reveal">
+        <div class="product-card" data-aos="fade-up" data-aos-delay="180">
           <div class="product-img-wrap"><img src="{{ asset('images/products4.png') }}" alt="Godown storage rack"></div>
           <div class="product-card-body">
             <h5>Godown Storage Rack</h5>
@@ -594,7 +633,7 @@
         </div>
       </div>
       <div class="col-6 col-lg-3">
-        <div class="product-card reveal">
+        <div class="product-card" data-aos="fade-up" data-aos-delay="240">
           <div class="product-img-wrap"><img src="{{ asset('images/compact.png') }}" alt="Compact display rack"></div>
           <div class="product-card-body">
             <h5>Compact Display Rack</h5>
@@ -607,7 +646,7 @@
         </div>
       </div>
       <div class="col-6 col-lg-3">
-        <div class="product-card reveal">
+        <div class="product-card" data-aos="fade-up" data-aos-delay="300">
           <div class="product-img-wrap"><img src="{{ asset('images/adjustable.png') }}" alt="Adjustable storage rack"></div>
           <div class="product-card-body">
             <h5>Adjustable Storage Rack</h5>
@@ -620,7 +659,7 @@
         </div>
       </div>
       <div class="col-6 col-lg-3">
-        <div class="product-card reveal">
+        <div class="product-card" data-aos="fade-up" data-aos-delay="300">
           <div class="product-img-wrap"><img src="{{ asset('images/selective.png') }}" alt="Selective pallet rack"></div>
           <div class="product-card-body">
             <h5>Selective Pallet Rack</h5>
@@ -633,7 +672,7 @@
         </div>
       </div>
       <div class="col-6 col-lg-3">
-        <div class="product-card reveal">
+        <div class="product-card" data-aos="fade-up" data-aos-delay="300">
           <div class="product-img-wrap"><span class="product-badge">Popular</span><img src="{{ asset('images/wallmounted.png') }}" alt="Wall mounted display rack"></div>
           <div class="product-card-body">
             <h5>Wall Mounted Display Rack</h5>

@@ -82,7 +82,7 @@
       <div class="row g-4">
         @foreach($projects as $project)
           <div class="col-md-6 col-lg-4">
-            <div class="work-card reveal">
+            <div class="work-card" data-aos="fade-up" data-aos-delay="{{ min($loop->index * 50, 300) }}">
               <img src="{{ asset('images/' . $project['image']) }}" alt="{{ $project['title'] }} — {{ $project['tag'] }}" loading="lazy">
               <div class="work-card-content">
                 <span class="work-card-tag">{{ $project['tag'] }}</span>

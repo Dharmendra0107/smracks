@@ -274,7 +274,7 @@
           <div class="row g-4">
             @foreach($products as $product)
               <div class="col-6 col-lg-4">
-                <div class="product-card reveal">
+                <div class="product-card" data-aos="fade-up" data-aos-delay="{{ min($loop->index * 50, 300) }}">
                   <div class="product-img-wrap">
                     @if($product->badge)
                       <span class="product-badge">{{ $product->badge }}</span>
@@ -287,11 +287,15 @@
                     <p>{{ $product->desc }}</p>
                     <div class="product-card-footer">
                       <div>
-                        <div class="price-tag">₹{{ number_format($product->price) }} <small>Per Unit</small></div>
-                        <div class="price-old-row">
-                          <span class="price-old">₹{{ number_format($product->old_price) }}</span>
-                          <span class="price-discount">{{ $product->discount_percent }}% off</span>
-                        </div>
+                        @if($product->has_discount)
+                          <div class="price-tag">₹{{ number_format($product->price) }} <small>Per Unit</small></div>
+                          <div class="price-old-row">
+                            <span class="price-old">₹{{ number_format($product->old_price) }}</span>
+                            <span class="price-discount">{{ $product->discount_percent }}% off</span>
+                          </div>
+                        @else
+                          <div class="price-tag">{{ $product->display_price }}</div>
+                        @endif
                       </div>
                       <a href="{{ route('products.show', $product) }}" class="btn-view-details">Details <i class="fa-solid fa-arrow-right"></i></a>
                     </div>

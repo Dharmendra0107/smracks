@@ -13,7 +13,10 @@
   <div class="container">
     <div class="row g-5">
       <div class="col-lg-4">
-        <span class="footer-brand" itemprop="name">SM<span>RACKS</span></span>
+        <div class="d-flex align-items-center gap-2 mb-1">
+          <img src="{{ asset('images/logo/logo.png') }}" alt="SM Racks" class="footer-logo-img">
+          <span class="footer-brand" itemprop="name" style="margin:0;">SM<span>RACKS</span></span>
+        </div>
         <p style="font-size:0.9rem; color:var(--steel-400);">
           Lucknow-based manufacturer of premium industrial, warehouse &amp; supermarket metal racks.
           Serving businesses across India since 2013.
@@ -87,6 +90,7 @@
   font-family:var(--font-display); font-weight:800; font-size:1.4rem; color:#fff; margin-bottom:1rem; display:block;
 }
 .footer-brand span{color:var(--ember-500);}
+.footer-logo-img{height:32px; width:auto; display:block;}
 .footer-social a{
   display:inline-flex; width:38px; height:38px; align-items:center; justify-content:center;
   background:var(--steel-800); border:1px solid var(--steel-700); border-radius:2px; margin-right:0.5rem;

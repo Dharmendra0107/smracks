@@ -15,7 +15,8 @@
 ========================================================= --}}
 <nav class="navbar navbar-expand-lg navbar-industrial fixed-top" aria-label="Primary navigation">
   <div class="container">
-    <a class="navbar-brand navbar-brand-custom" href="{{ route('home') }}" aria-label="SM Racks — Home">
+    <a class="navbar-brand navbar-brand-custom d-flex align-items-center gap-2" href="{{ route('home') }}" aria-label="SM Racks — Home">
+      <img src="{{ asset('images/logo/logo.png') }}" alt="SM Racks" class="navbar-logo-img">
       SM<span>RACKS</span>
     </a>
 
@@ -52,7 +53,10 @@
 <div class="nav-drawer-backdrop" id="navDrawerBackdrop"></div>
 <div class="nav-drawer d-lg-none" id="navDrawer" aria-hidden="true">
   <div class="nav-drawer-header">
-    <span class="navbar-brand-custom">SM<span>RACKS</span></span>
+    <div class="d-flex align-items-center gap-2">
+      <img src="{{ asset('images/logo/logo.png') }}" alt="SM Racks" class="navbar-logo-img">
+      <span class="navbar-brand-custom">SM<span>RACKS</span></span>
+    </div>
     <button class="nav-drawer-close" id="navDrawerClose" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
   </div>
 
@@ -95,6 +99,8 @@
   letter-spacing:0.03em;
 }
 .navbar-brand-custom span{color:var(--ember-500);}
+.navbar-logo-img{height:36px; width:auto; display:block;}
+.nav-drawer-header .navbar-logo-img{height:32px;}
 .nav-link-custom{
   font-family:var(--font-display);
   font-weight:500;

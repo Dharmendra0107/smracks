@@ -89,7 +89,7 @@
     <div class="row g-4">
       @foreach($features as $feature)
         <div class="col-md-6 col-lg-3">
-          <div class="feature-box reveal">
+          <div class="feature-box" data-aos="fade-up" data-aos-delay="{{ min($loop->index * 60, 300) }}">
             <div class="feature-icon"><i class="fa-solid {{ $feature['icon'] }}"></i></div>
             <h4>{{ $feature['title'] }}</h4>
             <p>{{ $feature['desc'] }}</p>
@@ -109,7 +109,7 @@
     <div class="row g-4">
       @foreach($processSteps as $step)
         <div class="col-6 col-lg-3">
-          <div class="process-step reveal">
+          <div class="process-step" data-aos="fade-up" data-aos-delay="{{ min($loop->index * 60, 300) }}">
             @if(!$loop->last)
               <div class="process-connector"></div>
             @endif
@@ -132,7 +132,7 @@
     <div class="row g-4">
       @foreach($testimonials as $testimonial)
         <div class="col-md-4">
-          <div class="testimonial-card reveal">
+          <div class="testimonial-card" data-aos="fade-up" data-aos-delay="{{ min($loop->index * 60, 300) }}">
             <div class="testimonial-stars">
               @for($i = 0; $i < 5; $i++)<i class="fa-solid fa-star"></i>@endfor
             </div>

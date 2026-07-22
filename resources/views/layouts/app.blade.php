@@ -36,19 +36,19 @@
 <meta property="og:title" content="@yield('og_title')@yield('title', 'SM Racks | Metal Rack Manufacturer in Lucknow, Uttar Pradesh')">
 <meta property="og:description" content="@yield('og_description')@yield('meta_description', 'SM Racks is a Lucknow-based manufacturer of supermarket display racks, slotted angle racks, warehouse pallet racks and storage racks.')">
 <meta property="og:url" content="{{ url()->current() }}">
-<meta property="og:image" content="@yield('og_image', asset('images/og-default.jpg'))">
+<meta property="og:image" content="@yield('og_image', asset('images/logo/logo.png'))">
 <meta property="og:locale" content="en_IN">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="@yield('title', 'SM Racks')">
 <meta name="twitter:description" content="@yield('meta_description', 'Metal rack manufacturer based in Lucknow, Uttar Pradesh.')">
-<meta name="twitter:image" content="@yield('og_image', asset('images/og-default.jpg'))">
+<meta name="twitter:image" content="@yield('og_image', asset('images/logo/logo.png'))">
 
 {{-- =========================================================
      FAVICON
 ========================================================= --}}
-<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
-<link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
+<link rel="icon" type="image/png" href="{{ asset('images/logo/logo.png') }}">
+<link rel="apple-touch-icon" href="{{ asset('images/logo/logo.png') }}">
 
 {{-- =========================================================
      FONTS / ICONS / FRAMEWORK
@@ -58,6 +58,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css">
 
 {{-- =========================================================
      SITE-WIDE STRUCTURED DATA (Organization + LocalBusiness)
@@ -70,7 +71,7 @@
   "@@context": "https://schema.org",
   "@@type": "HomeAndConstructionBusiness",
   "name": "SM Racks",
-  "image": "{{ asset('images/og-default.jpg') }}",
+  "image": "{{ asset('images/logo/logo.png') }}",
   "url": "{{ url('/') }}",
   "telephone": "+916394309204",
   "priceRange": "₹₹",
@@ -356,12 +357,6 @@ a:hover{text-decoration:none;}
 .stat-label{font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--steel-400); margin-top:0.3rem;}
 
 /* =========================================================
-   REVEAL-ON-SCROLL ANIMATION (shared)
-========================================================= */
-.reveal{opacity:0; transform:translateY(30px); transition:opacity 0.7s ease, transform 0.7s ease;}
-.reveal.active{opacity:1; transform:translateY(0);}
-
-/* =========================================================
    BACK TO TOP (shared)
 ========================================================= */
 .back-to-top{
@@ -399,20 +394,25 @@ a:hover{text-decoration:none;}
      Page-specific JS goes through @stack('scripts').
 ========================================================= --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
 <script>
-  // Reveal on scroll — observes every .reveal element on the page,
-  // regardless of which blade/partial rendered it.
   document.addEventListener('DOMContentLoaded', function () {
-    const reveals = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    reveals.forEach((el) => io.observe(el));
+    // Scroll animations — AOS scans the whole rendered page for
+    // data-aos="..." attributes, regardless of which blade/partial
+    // produced them. `once: true` means each element animates in a
+    // single time and stays visible (no re-hiding on scroll-up),
+    // which reads as calmer/less gimmicky than a repeating effect.
+    AOS.init({
+      duration: 600,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 60,
+      disable: function () {
+        // Respect a user's OS-level "reduce motion" preference —
+        // accessibility best practice, not just a nice-to-have.
+        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      }
+    });
 
     // Back to top
     const backToTop = document.getElementById('backToTop');

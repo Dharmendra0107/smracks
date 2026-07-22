@@ -119,7 +119,7 @@
     <div class="row g-4">
       @foreach($tiers as $tier)
         <div class="col-md-6 col-lg-3">
-          <div class="tier-card reveal {{ $tier['featured'] ? 'featured' : '' }}">
+          <div class="tier-card {{ $tier['featured'] ? 'featured' : '' }}" data-aos="fade-up" data-aos-delay="{{ min($loop->index * 60, 300) }}">
             <div class="tier-qty">{{ $tier['qty'] }}</div>
             <div class="tier-discount">{{ $tier['discount'] }}<small>%</small></div>
             <div class="tier-label">{{ $tier['label'] }}</div>
@@ -137,7 +137,7 @@
         <span class="section-tag">Why Order From Us</span>
         <h2 class="section-title mb-4">Built For Large Orders</h2>
         @foreach($whyBulk as $item)
-          <div class="why-bulk-item reveal">
+          <div class="why-bulk-item" data-aos="fade-right" data-aos-delay="{{ min($loop->index * 60, 300) }}">
             <div class="why-bulk-icon"><i class="fa-solid {{ $item['icon'] }}"></i></div>
             <div><h6>{{ $item['title'] }}</h6><p>{{ $item['desc'] }}</p></div>
           </div>

@@ -31,6 +31,18 @@
   .form-label-custom{font-family:var(--font-display); font-size:0.75rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--steel-700); margin-bottom:0.4rem; display:block;}
   .form-control-custom{border:1px solid var(--steel-200); border-radius:2px; padding:0.65rem 0.9rem; font-size:0.9rem; width:100%; margin-bottom:1.1rem;}
   .form-control-custom:focus{outline:none; border-color:var(--ember-500);}
+  
+  /* Password wrapper */
+  .password-wrapper{position:relative;}
+  .password-wrapper .form-control-custom{padding-right:2.8rem; margin-bottom:0;}
+  .toggle-password{
+    position:absolute; right:0.9rem; top:50%; transform:translateY(-50%);
+    background:none; border:none; color:var(--steel-600); font-size:1rem;
+    cursor:pointer; padding:0; transition:color 0.2s;
+  }
+  .toggle-password:hover{color:var(--ember-500);}
+  .password-wrapper + .error-text{margin-top:0.5rem;}
+  
   .btn-ember{
     background:var(--ember-500); border:none; color:#fff; font-family:var(--font-display); font-weight:600;
     letter-spacing:0.06em; text-transform:uppercase; padding:0.65rem 1.4rem; border-radius:2px; width:100%;
@@ -56,9 +68,14 @@
       <input type="email" name="email" value="{{ old('email') }}" class="form-control-custom" placeholder="admin@smracks.in" required autofocus>
 
       <label class="form-label-custom">Password</label>
-      <input type="password" name="password" class="form-control-custom" placeholder="••••••••" required>
+      <div class="password-wrapper">
+        <input type="password" name="password" id="password" class="form-control-custom" placeholder="••••••••" required>
+        <button type="button" class="toggle-password" id="togglePassword" aria-label="Show password">
+          <i class="fa-regular fa-eye"></i>
+        </button>
+      </div>
 
-      <div class="form-check mb-3">
+      <div class="form-check mb-3 mt-2">
         <input class="form-check-input" type="checkbox" name="remember" id="remember">
         <label class="form-check-label" for="remember" style="font-size:0.85rem; color:var(--steel-600);">Keep me signed in</label>
       </div>
@@ -68,5 +85,20 @@
 
     <a href="{{ route('home') }}" class="back-link"><i class="fa-solid fa-arrow-left me-1"></i> Back to website</a>
   </div>
+
+  <script>
+    (function() {
+      const toggleBtn = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      const icon = toggleBtn.querySelector('i');
+
+      toggleBtn.addEventListener('click', function() {
+        const isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
+        icon.className = isPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+        toggleBtn.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+      });
+    })();
+  </script>
 </body>
 </html>

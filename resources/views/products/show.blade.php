@@ -64,6 +64,14 @@
 }
 .gallery-main img{width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;}
 .gallery-main:hover img{transform:scale(1.05);}
+.gallery-thumbs{display:flex; gap:0.7rem; flex-wrap:wrap;}
+.gallery-thumb{
+  width:74px; height:74px; border-radius:4px; overflow:hidden; cursor:pointer;
+  border:2px solid var(--steel-200); transition:border-color 0.2s ease; opacity:0.75;
+}
+.gallery-thumb img{width:100%; height:100%; object-fit:cover;}
+.gallery-thumb:hover{opacity:1;}
+.gallery-thumb.active{border-color:var(--ember-500); opacity:1;}
 .gallery-badge{
   position:absolute; top:1rem; left:1rem; background:var(--steel-900); color:var(--ember-400);
   font-family:var(--font-display); font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;
@@ -148,16 +156,25 @@
   <div class="container">
     <div class="row g-5">
 
-      {{-- GALLERY — single hero image for now (our data model only
-           has one photo per product). Swap this block for a real
-           thumbnail-swap gallery once $product has an `images` array. --}}
+      {{-- GALLERY — now uses the real gallery_images accessor (primary
+           image + any extras in the `images` json column). Thumbnail
+           row only renders when there's more than one photo. --}}
       <div class="col-lg-6">
         <div class="gallery-main">
           @if($product->badge)
             <span class="gallery-badge">{{ $product->badge }}</span>
           @endif
-          <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->name }}">
+          <img id="mainProductImg" src="{{ asset('images/' . $product->gallery_images[0]) }}" alt="{{ $product->name }}">
         </div>
+        @if(count($product->gallery_images) > 1)
+          <div class="gallery-thumbs">
+            @foreach($product->gallery_images as $index => $img)
+              <div class="gallery-thumb {{ $index === 0 ? 'active' : '' }}" data-src="{{ asset('images/' . $img) }}">
+                <img src="{{ asset('images/' . $img) }}" alt="{{ $product->name }} — photo {{ $index + 1 }}">
+              </div>
+            @endforeach
+          </div>
+        @endif
       </div>
 
       {{-- INFO --}}
@@ -169,9 +186,13 @@
           <span>4.6 (128 reviews) &nbsp;|&nbsp; SKU: {{ strtoupper(str_replace('-', '', substr($product->slug, 0, 8))) }}</span>
         </div>
         <div class="product-price-block">
-          <span class="product-price">₹{{ number_format($product->price) }}</span>
-          <span class="product-price-old">₹{{ number_format($product->old_price) }}</span>
-          <span class="product-discount-badge">{{ $product->discount_percent }}% OFF</span>
+          @if($product->has_discount)
+            <span class="product-price">₹{{ number_format($product->price) }}</span>
+            <span class="product-price-old">₹{{ number_format($product->old_price) }}</span>
+            <span class="product-discount-badge">{{ $product->discount_percent }}% OFF</span>
+          @else
+            <span class="product-price">{{ $product->display_price }}</span>
+          @endif
         </div>
         <p class="product-desc">{{ $product->desc }} Built from high-tensile steel with a durable powder-coated finish — fabricated in-house and ready for pan-India dispatch.</p>
 
@@ -246,7 +267,7 @@
     {{-- QUOTE FORM --}}
     <div class="row mt-5" id="quote">
       <div class="col-lg-7">
-        <div class="quote-form-card reveal">
+        <div class="quote-form-card" data-aos="fade-up">
           <h4>Request a Quote for This Product</h4>
           <p>Fill in your details and our team will get back to you within 24 hours with the best pricing.</p>
           @if(session('quote_success'))
@@ -293,7 +314,7 @@
     <div class="row g-4">
       @foreach($related as $item)
         <div class="col-sm-6 col-lg-3">
-          <div class="product-card reveal">
+          <div class="product-card" data-aos="fade-up" data-aos-delay="{{ min($loop->index * 50, 300) }}">
             <div class="product-img-wrap">
               <img src="{{ asset('images/' . $item->image) }}" alt="{{ $item->name }}" loading="lazy">
             </div>
@@ -315,6 +336,20 @@
 @endsection
 
 @push('scripts')
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const thumbs = document.querySelectorAll('.gallery-thumb');
+    const mainImg = document.getElementById('mainProductImg');
+
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        mainImg.src = thumb.dataset.src;
+        thumbs.forEach((t) => t.classList.remove('active'));
+        thumb.classList.add('active');
+      });
+    });
+  });
+</script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const qtyInput = document.getElementById('qtyInput');
