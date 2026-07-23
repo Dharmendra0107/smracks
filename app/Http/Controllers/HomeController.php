@@ -15,8 +15,32 @@ class HomeController extends Controller
     public function index()
     {
         $categoryPricing = $this->categoryPricingSummary();
+        $specCards = $this->specCardProducts();
 
-        return view('home', compact('categoryPricing'));
+        return view('home', compact('categoryPricing', 'specCards'));
+    }
+
+    /**
+     * Hand-picked products shown in the detailed IndiaMART-style spec
+     * card section — one from each of the new categories plus a
+     * classic warehouse rack, so all the newly added pricing/specs
+     * data gets real visibility on the homepage.
+     */
+    protected function specCardProducts()
+    {
+        return Product::query()
+            ->active()
+            ->whereIn('slug', [
+                'display-rack-7ft',
+                'channel-rack-7ft',
+                'both-side-rack-5ft',
+                'industrial-pallet-rack',
+            ])
+            ->get()
+            ->sortBy(fn ($p) => array_search($p->slug, [
+                'display-rack-7ft', 'channel-rack-7ft', 'both-side-rack-5ft', 'industrial-pallet-rack',
+            ]))
+            ->values();
     }
 
     /**

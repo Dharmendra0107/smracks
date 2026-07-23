@@ -191,10 +191,15 @@
 .cat-card-headline{display:flex; align-items:flex-start; justify-content:space-between; gap:1rem;}
 .cat-card-headline h3{color:var(--steel-900); font-size:1.35rem; margin:0; line-height:1.1; flex:1;}
 .cat-card p{color:var(--steel-600); font-size:0.9rem; margin-bottom:0.6rem;}
-.cat-card-price{
-  font-family:var(--font-display); font-size:0.82rem; font-weight:600; letter-spacing:0.02em;
-  color:var(--ember-600); margin-top:-0.3rem; margin-bottom:0.6rem;
+.cat-card-price-badge{
+  position:absolute; top:1rem; left:1rem; z-index:2;
+  background:var(--steel-900); color:#fff;
+  font-family:var(--font-display); font-size:0.75rem; font-weight:600; letter-spacing:0.02em;
+  padding:0.4rem 0.8rem; border-radius:20px;
+  box-shadow:0 4px 12px rgba(20,24,28,0.25);
+  display:inline-flex; align-items:center; gap:0.4rem;
 }
+.cat-card-price-badge i{color:var(--ember-500); font-size:0.7rem;}
 .cat-card-link{
   color:var(--ember-500);
   font-family:var(--font-display);
@@ -301,6 +306,44 @@
   .products-section .product-card-footer{border-top:none; padding-top:0.3rem; flex-direction:column; align-items:flex-start; gap:0.3rem;}
   .products-section .btn-view-details{font-size:0.68rem;}
   .products-section .product-badge{font-size:0.58rem; padding:0.2rem 0.5rem; top:0.5rem; left:0.5rem;}
+}
+
+/* ---- Spec Cards (detailed IndiaMART-style product cards) ---- */
+.spec-cards-section{padding:4.5rem 0; background:var(--steel-100);}
+.spec-card{
+  background:#fff; border:1px solid var(--steel-200); border-radius:8px; padding:1.3rem;
+  height:100%; display:flex; flex-direction:column; transition:box-shadow 0.3s ease, transform 0.3s ease;
+}
+.spec-card:hover{box-shadow:0 14px 30px rgba(32,38,44,0.1); transform:translateY(-4px);}
+.spec-card-title{font-family:var(--font-display); font-size:1.05rem; font-weight:700; color:var(--steel-900); margin-bottom:0.2rem; line-height:1.2;}
+.spec-card-price{font-family:var(--font-display); font-size:1rem; font-weight:700; color:var(--ember-600); margin-bottom:0.9rem;}
+.spec-card-body{display:flex; gap:1rem; margin-bottom:0.8rem; flex:1;}
+.spec-card-img{width:96px; height:96px; border-radius:6px; overflow:hidden; flex-shrink:0; background:var(--steel-100);}
+.spec-card-img img{width:100%; height:100%; object-fit:cover;}
+.spec-card-list{list-style:none; margin:0; padding:0; flex:1; min-width:0;}
+.spec-card-list li{font-size:0.82rem; color:var(--steel-600); margin-bottom:0.35rem; line-height:1.4;}
+.spec-card-list li strong{color:var(--steel-900); font-weight:600;}
+.spec-card-more{
+  font-size:0.8rem; color:var(--ember-600); font-weight:600; text-decoration:underline;
+  display:inline-block; margin-bottom:1rem;
+}
+.spec-card-more:hover{color:var(--ember-500);}
+.spec-card-actions{display:flex; gap:0.6rem; margin-top:auto;}
+.btn-spec-quote, .btn-spec-call{
+  flex:1; display:flex; align-items:center; justify-content:center; gap:0.4rem;
+  padding:0.65rem 0.7rem; border-radius:30px; font-family:var(--font-display); font-size:0.78rem;
+  font-weight:600; letter-spacing:0.02em; text-align:center; border:none;
+}
+.btn-spec-quote{background:var(--steel-900); color:#fff;}
+.btn-spec-quote:hover{background:var(--steel-800); color:#fff;}
+.btn-spec-call{background:var(--ember-500); color:#fff;}
+.btn-spec-call:hover{background:var(--ember-600); color:#fff;}
+
+@media(max-width:575px){
+  .spec-card{padding:1.1rem;}
+  .spec-card-img{width:76px; height:76px;}
+  .spec-card-list li{font-size:0.78rem;}
+  .btn-spec-quote, .btn-spec-call{font-size:0.72rem; padding:0.6rem 0.5rem;}
 }
 @endpush
 
@@ -410,6 +453,9 @@
       <div class="col-md-6 col-lg-3">
         <a href="{{ route('products.index', ['cat' => 'supermarket']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="0">
           <img src="{{ asset('images/supermarket.png') }}" alt="Supermarket display racks">
+          @if(!empty($categoryPricing['supermarket']))
+            <div class="cat-card-price-badge"><i class="fa-solid fa-tag"></i> {{ $categoryPricing['supermarket'] }}</div>
+          @endif
           <div class="cat-card-icon"><i class="fa-solid fa-store"></i></div>
           <div class="cat-card-content">
             <div class="cat-card-headline">
@@ -417,15 +463,15 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Display shelving for retail stores, grocery outlets & showrooms.</p>
-            @if(!empty($categoryPricing['supermarket']))
-              <div class="cat-card-price">{{ $categoryPricing['supermarket'] }}</div>
-            @endif
           </div>
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
         <a href="{{ route('products.index', ['cat' => 'slotted-angle']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="60">
           <img src="{{ asset('images/slotted.png') }}" alt="Slotted angle storage racks">
+          @if(!empty($categoryPricing['slotted-angle']))
+            <div class="cat-card-price-badge"><i class="fa-solid fa-tag"></i> {{ $categoryPricing['slotted-angle'] }}</div>
+          @endif
           <div class="cat-card-icon"><i class="fa-solid fa-layer-group"></i></div>
           <div class="cat-card-content">
             <div class="cat-card-headline">
@@ -433,15 +479,15 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Adjustable, bolt-free racks for offices, homes & light storage.</p>
-            @if(!empty($categoryPricing['slotted-angle']))
-              <div class="cat-card-price">{{ $categoryPricing['slotted-angle'] }}</div>
-            @endif
           </div>
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
         <a href="{{ route('products.index', ['cat' => 'warehouse']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="120">
           <img src="{{ asset('images/warehouse.png') }}" alt="Warehouse pallet racks">
+          @if(!empty($categoryPricing['warehouse']))
+            <div class="cat-card-price-badge"><i class="fa-solid fa-tag"></i> {{ $categoryPricing['warehouse'] }}</div>
+          @endif
           <div class="cat-card-icon"><i class="fa-solid fa-warehouse"></i></div>
           <div class="cat-card-content">
             <div class="cat-card-headline">
@@ -449,15 +495,15 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Heavy-duty pallet & industrial racking for bulk storage facilities.</p>
-            @if(!empty($categoryPricing['warehouse']))
-              <div class="cat-card-price">{{ $categoryPricing['warehouse'] }}</div>
-            @endif
           </div>
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
         <a href="{{ route('products.index', ['cat' => 'storage']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="180">
           <img src="{{ asset('images/Storage.png') }}" alt="Godown storage racks">
+          @if(!empty($categoryPricing['storage']))
+            <div class="cat-card-price-badge"><i class="fa-solid fa-tag"></i> {{ $categoryPricing['storage'] }}</div>
+          @endif
           <div class="cat-card-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
           <div class="cat-card-content">
             <div class="cat-card-headline">
@@ -465,15 +511,15 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Multi-purpose racks for godowns, factories & cold storage units.</p>
-            @if(!empty($categoryPricing['storage']))
-              <div class="cat-card-price">{{ $categoryPricing['storage'] }}</div>
-            @endif
           </div>
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
         <a href="{{ route('products.index', ['cat' => 'heavy-duty']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="240">
           <img src="{{ asset('images/heavy-duty.png') }}" alt="Heavy duty industrial racks">
+          @if(!empty($categoryPricing['heavy-duty']))
+            <div class="cat-card-price-badge"><i class="fa-solid fa-tag"></i> {{ $categoryPricing['heavy-duty'] }}</div>
+          @endif
           <div class="cat-card-icon"><i class="fa-solid fa-weight-hanging"></i></div>
           <div class="cat-card-content">
             <div class="cat-card-headline">
@@ -481,15 +527,15 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>High load-bearing racks for machinery & bulk material storage.</p>
-            @if(!empty($categoryPricing['heavy-duty']))
-              <div class="cat-card-price">{{ $categoryPricing['heavy-duty'] }}</div>
-            @endif
           </div>
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
         <a href="{{ route('products.index', ['cat' => 'boltless']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="300">
           <img src="{{ asset('images/boltless.png') }}" alt="Boltless modular racks">
+          @if(!empty($categoryPricing['boltless']))
+            <div class="cat-card-price-badge"><i class="fa-solid fa-tag"></i> {{ $categoryPricing['boltless'] }}</div>
+          @endif
           <div class="cat-card-icon"><i class="fa-solid fa-cubes"></i></div>
           <div class="cat-card-content">
             <div class="cat-card-headline">
@@ -497,15 +543,15 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Tool-free assembly, modular racks for quick setup & relocation.</p>
-            @if(!empty($categoryPricing['boltless']))
-              <div class="cat-card-price">{{ $categoryPricing['boltless'] }}</div>
-            @endif
           </div>
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
         <a href="{{ route('products.index', ['cat' => 'cold-storage']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="300">
           <img src="{{ asset('images/cold-storage.png') }}" alt="Cold storage racks">
+          @if(!empty($categoryPricing['cold-storage']))
+            <div class="cat-card-price-badge"><i class="fa-solid fa-tag"></i> {{ $categoryPricing['cold-storage'] }}</div>
+          @endif
           <div class="cat-card-icon"><i class="fa-solid fa-snowflake"></i></div>
           <div class="cat-card-content">
             <div class="cat-card-headline">
@@ -513,15 +559,15 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Rust-proof coated racks built for cold rooms & food storage.</p>
-            @if(!empty($categoryPricing['cold-storage']))
-              <div class="cat-card-price">{{ $categoryPricing['cold-storage'] }}</div>
-            @endif
           </div>
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
         <a href="{{ route('products.index', ['cat' => 'office']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="300">
           <img src="{{ asset('images/office.png') }}" alt="Office and home storage racks">
+          @if(!empty($categoryPricing['office']))
+            <div class="cat-card-price-badge"><i class="fa-solid fa-tag"></i> {{ $categoryPricing['office'] }}</div>
+          @endif
           <div class="cat-card-icon"><i class="fa-solid fa-building"></i></div>
           <div class="cat-card-content">
             <div class="cat-card-headline">
@@ -529,15 +575,15 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Compact storage solutions for offices, records rooms & homes.</p>
-            @if(!empty($categoryPricing['office']))
-              <div class="cat-card-price">{{ $categoryPricing['office'] }}</div>
-            @endif
           </div>
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
         <a href="{{ route('products.index', ['cat' => 'display-racks']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="0">
           <img src="{{ asset('images/products.png') }}" alt="Display racks">
+          @if(!empty($categoryPricing['display-racks']))
+            <div class="cat-card-price-badge"><i class="fa-solid fa-tag"></i> {{ $categoryPricing['display-racks'] }}</div>
+          @endif
           <div class="cat-card-icon"><i class="fa-solid fa-table-cells"></i></div>
           <div class="cat-card-content">
             <div class="cat-card-headline">
@@ -545,15 +591,15 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Panel-mounted display racks, 5–8 ft heights, priced per running foot.</p>
-            @if(!empty($categoryPricing['display-racks']))
-              <div class="cat-card-price">{{ $categoryPricing['display-racks'] }}</div>
-            @endif
           </div>
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
         <a href="{{ route('products.index', ['cat' => 'channel-rack']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="60">
           <img src="{{ asset('images/adjustable.png') }}" alt="Channel racks">
+          @if(!empty($categoryPricing['channel-rack']))
+            <div class="cat-card-price-badge"><i class="fa-solid fa-tag"></i> {{ $categoryPricing['channel-rack'] }}</div>
+          @endif
           <div class="cat-card-icon"><i class="fa-solid fa-grip-lines"></i></div>
           <div class="cat-card-content">
             <div class="cat-card-headline">
@@ -561,15 +607,15 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Channel-frame racking, 5–8 ft heights, priced per running foot.</p>
-            @if(!empty($categoryPricing['channel-rack']))
-              <div class="cat-card-price">{{ $categoryPricing['channel-rack'] }}</div>
-            @endif
           </div>
         </a>
       </div>
       <div class="col-md-6 col-lg-3">
         <a href="{{ route('products.index', ['cat' => 'both-side-racks']) }}" class="cat-card" data-aos="fade-up" data-aos-delay="120">
           <img src="{{ asset('images/warehouse.png') }}" alt="Both side racks">
+          @if(!empty($categoryPricing['both-side-racks']))
+            <div class="cat-card-price-badge"><i class="fa-solid fa-tag"></i> {{ $categoryPricing['both-side-racks'] }}</div>
+          @endif
           <div class="cat-card-icon"><i class="fa-solid fa-arrows-left-right"></i></div>
           <div class="cat-card-content">
             <div class="cat-card-headline">
@@ -577,9 +623,6 @@
               <span class="cat-card-link">View Range <i class="fa-solid fa-arrow-right"></i></span>
             </div>
             <p>Double-sided racks, accessible from both faces — built for aisle setups.</p>
-            @if(!empty($categoryPricing['both-side-racks']))
-              <div class="cat-card-price">{{ $categoryPricing['both-side-racks'] }}</div>
-            @endif
           </div>
         </a>
       </div>
@@ -847,6 +890,41 @@
           <p>Fast response, no delays</p>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILED SPEC CARDS -->
+<section class="spec-cards-section">
+  <div class="container">
+    <div class="mb-4" data-aos="fade-up">
+      <span class="section-tag">Full Specifications</span>
+      <h2 class="section-title mb-0" style="font-size:1.6rem;">Detailed Rack Specs & Pricing</h2>
+    </div>
+    <div class="row g-4">
+      @foreach($specCards as $product)
+        <div class="col-md-6 col-lg-3">
+          <div class="spec-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 60 }}">
+            <div class="spec-card-title">{{ $product->name }}</div>
+            <div class="spec-card-price">{{ $product->display_price }}</div>
+            <div class="spec-card-body">
+              <div class="spec-card-img">
+                <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->name }}" loading="lazy">
+              </div>
+              <ul class="spec-card-list">
+                @foreach(array_slice($product->specs ?? [], 0, 4, true) as $label => $value)
+                  <li>{{ $label }}: <strong>{{ $value }}</strong></li>
+                @endforeach
+              </ul>
+            </div>
+            <a href="{{ route('products.show', $product) }}" class="spec-card-more">view more...</a>
+            <div class="spec-card-actions">
+              <a href="{{ route('products.show', $product) }}#quote" class="btn-spec-quote"><i class="fa-solid fa-comment-dots"></i> Get Best Price</a>
+              <a href="tel:+916394309204" class="btn-spec-call"><i class="fa-solid fa-phone"></i> Call Now</a>
+            </div>
+          </div>
+        </div>
+      @endforeach
     </div>
   </div>
 </section>
