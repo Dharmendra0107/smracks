@@ -173,6 +173,7 @@
 
           <form method="POST" action="{{ route('quote.submit') }}">
             @csrf
+            <input type="hidden" name="source" value="Bulk Order Page">
             <label class="form-label-custom">Rack Type Needed</label>
             <div class="rack-type-grid">
               @foreach($rackTypes as $index => $type)

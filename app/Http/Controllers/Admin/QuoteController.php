@@ -11,9 +11,11 @@ class QuoteController extends Controller
     public function index(Request $request)
     {
         $status = $request->query('status');
+        $source = $request->query('source');
 
         $quotes = QuoteRequest::query()
             ->when($status, fn ($q) => $q->where('status', $status))
+            ->when($source, fn ($q) => $q->where('source', $source))
             ->latest()
             ->paginate(20)
             ->withQueryString();
@@ -25,7 +27,16 @@ class QuoteController extends Controller
             'closed' => QuoteRequest::where('status', 'closed')->count(),
         ];
 
-        return view('admin.quotes.index', compact('quotes', 'status', 'counts'));
+        // Distinct sources actually present in the data, so this list
+        // grows automatically if a new form/entry-point is added later
+        // without needing a hardcoded list here.
+        $sources = QuoteRequest::query()
+            ->whereNotNull('source')
+            ->distinct()
+            ->orderBy('source')
+            ->pluck('source');
+
+        return view('admin.quotes.index', compact('quotes', 'status', 'source', 'counts', 'sources'));
     }
 
     public function show(QuoteRequest $quote)

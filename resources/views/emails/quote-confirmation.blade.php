@@ -23,13 +23,15 @@
 <body>
 <div class="wrap">
   <div class="card">
-    <div class="header">SM<span>RACKS</span></div>
+    <div class="header"><img src="{{ asset('images/logo/logo.png') }}" alt="SM Racks" style="height:32px; width:auto; display:block;"></div>
     <div class="body">
       <h2>Thanks, {{ $quoteRequest->name }} — we&rsquo;ve got your request.</h2>
       <p>Our team will review your requirement and get back to you within <strong>24 hours</strong> with pricing and availability.</p>
 
       <div class="summary">
+        @if($quoteRequest->quantity)
         <div class="row"><span class="label">Quantity</span><span class="value">{{ $quoteRequest->quantity }}</span></div>
+        @endif
         @if($quoteRequest->product)
         <div class="row"><span class="label">Product</span><span class="value">{{ $quoteRequest->product }}</span></div>
         @endif

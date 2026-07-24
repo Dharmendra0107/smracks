@@ -20,7 +20,7 @@
 <body>
 <div class="wrap">
   <div class="card">
-    <div class="header">SM<span>RACKS</span></div>
+    <div class="header"><img src="{{ asset('images/logo/logo.png') }}" alt="SM Racks" style="height:32px; width:auto; display:block;"></div>
     <div class="body">
       <p style="margin-top:0;">A new quote request just came in from the website:</p>
 
@@ -45,9 +45,15 @@
       </div>
       @endif
       <div class="row">
+        <div class="label">Source</div>
+        <div class="value">{{ $quoteRequest->source ?? 'Website' }}</div>
+      </div>
+      @if($quoteRequest->quantity)
+      <div class="row">
         <div class="label">Quantity</div>
         <div class="value">{{ $quoteRequest->quantity }}</div>
       </div>
+      @endif
       @if($quoteRequest->product)
       <div class="row">
         <div class="label">Product</div>

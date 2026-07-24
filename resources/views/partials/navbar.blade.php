@@ -31,12 +31,37 @@
 
     {{-- DESKTOP NAV --}}
     <div class="collapse navbar-collapse d-none d-lg-flex" id="navMainDesktop">
-      <ul class="navbar-nav mx-auto">
+      <ul class="navbar-nav mx-auto align-items-lg-center">
         <li class="nav-item"><a class="nav-link nav-link-custom {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a></li>
-        <li class="nav-item"><a class="nav-link nav-link-custom {{ request()->routeIs('products*') ? 'active' : '' }}" href="{{ route('products.index') }}">Products</a></li>
+
+        <li class="nav-item dropdown nav-cat-dropdown">
+          <a class="nav-link nav-link-custom dropdown-toggle {{ request()->routeIs('products*') ? 'active' : '' }}" href="{{ route('products.index') }}" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Products
+          </a>
+          <div class="dropdown-menu nav-cat-menu" aria-labelledby="categoriesDropdown">
+            <a href="{{ route('products.index') }}" class="nav-cat-item nav-cat-item-all">
+              <i class="fa-solid fa-grip"></i>
+              <span>All Products</span>
+            </a>
+            <div class="nav-cat-divider"></div>
+            <div class="nav-cat-grid">
+              @foreach($navCategories as $cat)
+                <a href="{{ route('products.index', ['cat' => $cat['slug']]) }}" class="nav-cat-item">
+                  <i class="fa-solid {{ $cat['icon'] }}"></i>
+                  <span>{{ $cat['label'] }}</span>
+                  @if($cat['count'] > 0)
+                    <small>{{ $cat['count'] }}</small>
+                  @endif
+                </a>
+              @endforeach
+            </div>
+          </div>
+        </li>
+
         <li class="nav-item"><a class="nav-link nav-link-custom {{ request()->routeIs('use-cases') ? 'active' : '' }}" href="{{ route('use-cases') }}">Where To Use</a></li>
         <li class="nav-item"><a class="nav-link nav-link-custom {{ request()->routeIs('gallery') ? 'active' : '' }}" href="{{ route('gallery') }}">Our Work</a></li>
         <li class="nav-item"><a class="nav-link nav-link-custom {{ request()->routeIs('bulk-order') ? 'active' : '' }}" href="{{ route('bulk-order') }}">Bulk Orders</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-custom {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a></li>
         <li class="nav-item"><a class="nav-link nav-link-custom {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About</a></li>
       </ul>
       <div class="d-flex gap-2 align-items-center">
@@ -62,10 +87,29 @@
 
   <ul class="nav-drawer-links">
     <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}"><i class="fa-solid fa-house"></i> Home</a></li>
-    <li><a href="{{ route('products.index') }}" class="{{ request()->routeIs('products*') ? 'active' : '' }}"><i class="fa-solid fa-warehouse"></i> Products</a></li>
+
+    <li class="nav-drawer-expandable">
+      <div class="nav-drawer-expandable-head {{ request()->routeIs('products*') ? 'active' : '' }}" id="drawerCatToggle">
+        <a href="{{ route('products.index') }}"><i class="fa-solid fa-warehouse"></i> Products</a>
+        <button type="button" aria-label="Toggle categories" aria-expanded="false"><i class="fa-solid fa-chevron-down"></i></button>
+      </div>
+      <ul class="nav-drawer-sublist" id="drawerCatList">
+        <li><a href="{{ route('products.index') }}"><i class="fa-solid fa-grip"></i> All Products</a></li>
+        @foreach($navCategories as $cat)
+          <li>
+            <a href="{{ route('products.index', ['cat' => $cat['slug']]) }}">
+              <i class="fa-solid {{ $cat['icon'] }}"></i> {{ $cat['label'] }}
+              @if($cat['count'] > 0)<small>{{ $cat['count'] }}</small>@endif
+            </a>
+          </li>
+        @endforeach
+      </ul>
+    </li>
+
     <li><a href="{{ route('use-cases') }}" class="{{ request()->routeIs('use-cases') ? 'active' : '' }}"><i class="fa-solid fa-lightbulb"></i> Where To Use</a></li>
     <li><a href="{{ route('gallery') }}" class="{{ request()->routeIs('gallery') ? 'active' : '' }}"><i class="fa-solid fa-images"></i> Our Work</a></li>
     <li><a href="{{ route('bulk-order') }}" class="{{ request()->routeIs('bulk-order') ? 'active' : '' }}"><i class="fa-solid fa-tags"></i> Bulk Orders</a></li>
+    <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}"><i class="fa-solid fa-envelope"></i> Contact</a></li>
     <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}"><i class="fa-solid fa-circle-info"></i> About</a></li>
   </ul>
 
@@ -213,6 +257,59 @@
 }
 .nav-drawer-contact a:active{background:var(--ember-500); color:#fff;}
 
+/* ---- Desktop Categories Dropdown ---- */
+.nav-cat-dropdown{position:relative;}
+.nav-link-custom.dropdown-toggle::after{display:none;}
+.nav-cat-menu{
+  border:1px solid var(--steel-200); border-radius:8px; box-shadow:0 20px 45px rgba(20,24,28,0.16);
+  padding:0.9rem; margin-top:0.6rem; min-width:520px; border-top:3px solid var(--ember-500);
+}
+.nav-cat-item-all{
+  display:flex; align-items:center; gap:0.6rem; padding:0.6rem 0.8rem; border-radius:6px;
+  font-family:var(--font-display); font-size:0.82rem; font-weight:700; letter-spacing:0.03em; text-transform:uppercase;
+  color:var(--steel-900);
+}
+.nav-cat-item-all:hover{background:var(--steel-100);}
+.nav-cat-item-all i{color:var(--ember-500);}
+.nav-cat-divider{height:1px; background:var(--steel-200); margin:0.6rem 0.2rem;}
+.nav-cat-grid{display:grid; grid-template-columns:1fr 1fr; gap:0.2rem 0.6rem;}
+.nav-cat-item{
+  display:flex; align-items:center; gap:0.6rem; padding:0.55rem 0.7rem; border-radius:6px;
+  font-size:0.85rem; color:var(--steel-700); transition:background 0.15s ease, color 0.15s ease;
+}
+.nav-cat-item:hover{background:rgba(240,83,15,0.06); color:var(--ember-600);}
+.nav-cat-item i{width:18px; text-align:center; color:var(--ember-500); font-size:0.85rem; flex-shrink:0;}
+.nav-cat-item span{flex:1; min-width:0;}
+.nav-cat-item small{color:var(--steel-400); font-size:0.72rem; flex-shrink:0;}
+@media(max-width:1150px){
+  .nav-cat-menu{min-width:280px;}
+  .nav-cat-grid{grid-template-columns:1fr;}
+}
+
+/* ---- Mobile drawer expandable Categories sub-list ---- */
+.nav-drawer-expandable-head{
+  display:flex; align-items:center; justify-content:space-between;
+  border-left:3px solid transparent;
+}
+.nav-drawer-expandable-head.active{border-left-color:var(--ember-500); background:rgba(240,83,15,0.05);}
+.nav-drawer-expandable-head a{flex:1; border-left:none !important;}
+.nav-drawer-expandable-head button{
+  background:none; border:none; color:var(--steel-500); width:44px; height:44px; flex-shrink:0;
+  transition:transform 0.25s ease;
+}
+.nav-drawer-expandable-head button.open{transform:rotate(180deg);}
+.nav-drawer-sublist{
+  list-style:none; margin:0; padding:0; max-height:0; overflow:hidden;
+  transition:max-height 0.3s ease; background:var(--steel-100);
+}
+.nav-drawer-sublist.open{max-height:600px;}
+.nav-drawer-sublist li a{
+  padding:0.7rem 1.3rem 0.7rem 2.6rem; font-size:0.82rem; text-transform:none; letter-spacing:0.01em;
+  display:flex; align-items:center; gap:0.7rem;
+}
+.nav-drawer-sublist li a i{width:16px; font-size:0.82rem;}
+.nav-drawer-sublist li a small{margin-left:auto; color:var(--steel-400); font-size:0.72rem;}
+
 /* Prevent background scroll while drawer is open */
 body.nav-drawer-open{overflow:hidden;}
 </style>
@@ -252,6 +349,20 @@ body.nav-drawer-open{overflow:hidden;}
     if (openBtn) openBtn.addEventListener('click', openDrawer);
     if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
     if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+    // Expandable "Categories" sub-list inside the mobile drawer —
+    // tapping the chevron toggles it open/closed without navigating.
+    const catToggle = document.getElementById('drawerCatToggle');
+    const catList = document.getElementById('drawerCatList');
+    if (catToggle && catList) {
+      const chevronBtn = catToggle.querySelector('button');
+      chevronBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        catList.classList.toggle('open');
+        chevronBtn.classList.toggle('open');
+        chevronBtn.setAttribute('aria-expanded', catList.classList.contains('open'));
+      });
+    }
 
     // Close drawer automatically if the viewport is resized past
     // the mobile breakpoint (e.g. rotating a tablet to landscape).

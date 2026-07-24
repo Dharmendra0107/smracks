@@ -276,6 +276,7 @@
           <form method="POST" action="{{ route('quote.submit') }}">
             @csrf
             <input type="hidden" name="product" value="{{ $product->name }}">
+            <input type="hidden" name="source" value="Product Page">
             <div class="row">
               <div class="col-md-6"><input type="text" name="name" value="{{ old('name') }}" class="form-control-custom" placeholder="Your Name*" required></div>
               <div class="col-md-6"><input type="tel" name="phone" value="{{ old('phone') }}" class="form-control-custom" placeholder="Phone Number*" required></div>

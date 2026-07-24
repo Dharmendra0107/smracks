@@ -30,6 +30,7 @@ Route::get('/products/{product}', [ProductController::class, 'show'])->name('pro
 Route::get('/where-to-use', [PageController::class, 'useCases'])->name('use-cases');
 Route::get('/our-work', [PageController::class, 'gallery'])->name('gallery');
 Route::get('/bulk-orders', [PageController::class, 'bulkOrder'])->name('bulk-order');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/quote', [PageController::class, 'submitQuote'])->name('quote.submit');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 

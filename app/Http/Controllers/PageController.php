@@ -128,12 +128,26 @@ class PageController extends Controller
     }
 
     /**
-     * Handles the quote request form (used on the product detail page
-     * and the bulk-order page form).
+     * General "Contact Us" page — for people with questions not tied
+     * to a specific product or bulk quantity. Submits through the
+     * same submitQuote() handler as the other two forms, just with
+     * quantity/product left empty and source set to identify it.
+     */
+    public function contact()
+    {
+        return view('contact');
+    }
+
+    /**
+     * Handles the quote/contact request form — shared by the product
+     * detail page, the bulk-order page, and the general Contact Us
+     * page. Every submission saves to the database (so nothing is
+     * lost even if email delivery fails or SMTP isn't configured yet)
+     * and sends a notification email to the SM Racks inbox.
      *
-     * Saves to the database (so nothing is lost even if email delivery
-     * fails or SMTP isn't configured yet) and sends a notification
-     * email to the SM Racks inbox.
+     * `source` records which of the three forms this came from —
+     * shown in the admin panel so the team knows the context of
+     * every inquiry at a glance.
      *
      * NOTE on email delivery: MAIL_MAILER is set to "log" in the
      * default .env, which writes emails to storage/logs/laravel.log
@@ -149,14 +163,17 @@ class PageController extends Controller
             'name' => 'required|string|max:100',
             'phone' => 'required|string|max:20',
             'email' => 'nullable|email|max:150',
-            'quantity' => 'required|integer|min:1',
+            'quantity' => 'nullable|integer|min:1',
             'message' => 'nullable|string|max:1000',
             'product' => 'nullable|string|max:150',
+            'source' => 'nullable|string|max:100',
             // Extra fields used by the bulk-order form specifically:
             'company' => 'nullable|string|max:150',
             'delivery_city' => 'nullable|string|max:100',
             'rack_type' => 'nullable|string|max:100',
         ]);
+
+        $validated['source'] = $validated['source'] ?? 'Website';
 
         $quoteRequest = QuoteRequest::create($validated);
 
@@ -173,7 +190,7 @@ class PageController extends Controller
             report($e);
         }
 
-        return back()->with('quote_success', 'Thanks! Your quote request has been received — our team will reach out within 24 hours.');
+        return back()->with('quote_success', 'Thanks! Your message has been received — our team will reach out within 24 hours.');
     }
 
     /**

@@ -12,7 +12,10 @@
           <h3 style="font-size:1.2rem; color:var(--steel-900); margin:0;">{{ $quote->name }}</h3>
           <p style="color:var(--steel-500); font-size:0.85rem; margin:0.2rem 0 0;">Submitted {{ $quote->created_at->format('d M Y, h:i A') }}</p>
         </div>
-        <span class="status-badge status-{{ $quote->status }}">{{ ucfirst($quote->status) }}</span>
+        <div class="d-flex flex-column align-items-end gap-2">
+          <span class="status-badge status-{{ $quote->status }}">{{ ucfirst($quote->status) }}</span>
+          <span class="source-badge">{{ $quote->source ?? 'Website' }}</span>
+        </div>
       </div>
 
       <table class="admin-table">
@@ -23,7 +26,9 @@
         @if($quote->company)
         <tr><th>Company</th><td>{{ $quote->company }}</td></tr>
         @endif
+        @if($quote->quantity)
         <tr><th>Quantity</th><td>{{ $quote->quantity }}</td></tr>
+        @endif
         @if($quote->product)
         <tr><th>Product</th><td>{{ $quote->product }}</td></tr>
         @endif

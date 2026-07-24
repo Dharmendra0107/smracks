@@ -28,6 +28,22 @@
   </div>
 </div>
 
+@if($sourceBreakdown->isNotEmpty())
+<div class="admin-card mb-4">
+  <h3 style="font-size:1rem; color:var(--steel-900); margin-bottom:1rem;">Inquiries By Source</h3>
+  <div class="row g-3">
+    @foreach($sourceBreakdown as $row)
+      <div class="col-6 col-md-3">
+        <div style="border:1px solid var(--steel-200); border-radius:6px; padding:1rem; text-align:center;">
+          <div style="font-family:var(--font-display); font-size:1.6rem; font-weight:800; color:var(--steel-900);">{{ $row->total }}</div>
+          <div style="font-size:0.78rem; color:var(--steel-600); margin-top:0.2rem;">{{ $row->source }}</div>
+        </div>
+      </div>
+    @endforeach
+  </div>
+</div>
+@endif
+
 <div class="admin-card">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h3 style="font-size:1rem; color:var(--steel-900); margin:0;">Recent Quote Requests</h3>
@@ -40,15 +56,15 @@
     <div style="overflow-x:auto;">
       <table class="admin-table">
         <thead>
-          <tr><th>Name</th><th>Phone</th><th>Product / Rack Type</th><th>Qty</th><th>Status</th><th>Received</th><th></th></tr>
+          <tr><th>Name</th><th>Source</th><th>Product / Rack Type</th><th>Qty</th><th>Status</th><th>Received</th><th></th></tr>
         </thead>
         <tbody>
           @foreach($recentQuotes as $quote)
             <tr>
               <td>{{ $quote->name }}</td>
-              <td>{{ $quote->phone }}</td>
+              <td><span class="source-badge">{{ $quote->source ?? 'Website' }}</span></td>
               <td>{{ $quote->product ?? $quote->rack_type ?? '—' }}</td>
-              <td>{{ $quote->quantity }}</td>
+              <td>{{ $quote->quantity ?? '—' }}</td>
               <td><span class="status-badge status-{{ $quote->status }}">{{ ucfirst($quote->status) }}</span></td>
               <td>{{ $quote->created_at->diffForHumans() }}</td>
               <td><a href="{{ route('admin.quotes.show', $quote) }}" class="btn-outline-custom" style="text-decoration:none; display:inline-block;">View</a></td>

@@ -31,6 +31,7 @@
   .admin-brand span{font-family:var(--font-display); font-weight:800; font-size:1.2rem; color:#fff;}
   .admin-brand span em{color:var(--ember-500); font-style:normal;}
   .admin-brand small{display:block; color:var(--steel-400); font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; margin-top:0.2rem;}
+  .admin-logo-img{height:32px; width:auto; display:block;}
   .admin-nav{flex:1; padding:1rem 0.7rem;}
   .admin-nav a{
     display:flex; align-items:center; gap:0.8rem; padding:0.75rem 0.9rem; border-radius:4px;
@@ -70,6 +71,10 @@
   .admin-table td{padding:0.9rem 0.8rem; border-bottom:1px solid var(--steel-100); font-size:0.88rem; vertical-align:middle;}
   .admin-table tr:hover td{background:var(--steel-100);}
   .status-badge{font-family:var(--font-display); font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase; padding:0.25rem 0.6rem; border-radius:20px;}
+  .source-badge{
+    font-family:var(--font-display); font-size:0.68rem; letter-spacing:0.03em; text-transform:uppercase;
+    padding:0.25rem 0.6rem; border-radius:4px; background:var(--steel-100); color:var(--steel-700); white-space:nowrap;
+  }
   .status-new{background:rgba(240,83,15,0.12); color:var(--ember-600);}
   .status-contacted{background:rgba(13,110,253,0.1); color:#0d6efd;}
   .status-closed{background:rgba(25,135,84,0.1); color:#198754;}
@@ -92,7 +97,7 @@
 
   <aside class="admin-sidebar" id="adminSidebar">
     <div class="admin-brand">
-      <span>SM<em>RACKS</em></span>
+      <img src="{{ asset('images/logo/logo.png') }}" alt="SM Racks" class="admin-logo-img">
       <small>Admin Panel</small>
     </div>
     <nav class="admin-nav">
